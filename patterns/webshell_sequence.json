@@ -1,0 +1,6 @@
+{
+  "name": "Webshell Upload and Command Sequence",
+  "description": "게시글 작성 → /files/ 접근 → curl 명령(웹쉘 명령 실행) 순서가 일정 시간 내 발생",
+  "sequence": ["write", "files", "curl"],
+  "within_seconds": 300
+}

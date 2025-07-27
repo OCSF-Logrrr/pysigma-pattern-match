@@ -1,0 +1,20 @@
+title: Audit Curl Execution
+id: a49370b2-d0e3-469b-8fcc-25f084d8b047
+status: experimental
+description: Detects execution of curl command
+author: WHS-Logrr
+logsource:
+  product: linux
+  service: auditd
+detection:
+  selection:
+    #추가 예정
+  condition: selection
+fields:
+  - src_endpoint.ip
+  - process.exe
+  - process.args
+level: high
+tags:
+  - attack.exfiltration
+  - event_type.curl
