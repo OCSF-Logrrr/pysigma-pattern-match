@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     http_request.http_method: "POST"
-    http_request.url.path.keyword: "/webapi/board/write.php"
+    http_request.url.path|contains: "write_ok.php"
   condition: selection
 fields:
   - src_endpoint.ip

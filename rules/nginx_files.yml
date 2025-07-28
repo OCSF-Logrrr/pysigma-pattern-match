@@ -8,7 +8,7 @@ logsource:
   service: access
 detection:
   selection:
-    http_request.url.path.keyword|wildcard: "/webapi/files/*"
+    http_request.url.path: "*webapi/files/*"
   condition: selection
 fields:
   - src_endpoint.ip

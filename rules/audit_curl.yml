@@ -8,12 +8,13 @@ logsource:
   service: auditd
 detection:
   selection:
-    #추가 예정
+    actor.process.name: "curl"
+    actor.process.file.path: "/usr/bin/curl"
   condition: selection
 fields:
-  - src_endpoint.ip
-  - process.exe
-  - process.args
+  - actor.process.name
+  - actor.process.cmd_line
+  - user.name
 level: high
 tags:
   - attack.exfiltration
