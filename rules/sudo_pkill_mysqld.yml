@@ -1,24 +1,15 @@
 title: Sudo pkill mysqld (Potential CVE-2016-6662)
-id: 1F4AD0CD-FE9A-4F45-9C8A-1B1430F8B37A     # keep/replace with your UUID scheme
-status: test
-description: >
-  Fires when a user invokes **sudo pkill mysqld**.  
-  Attackers exploiting **CVE-2016-6662** (MySQL config-file RCE) commonly
-  kill or restart *mysqld* so the daemon reloads a malicious `my.cnf`.
-  Any unplanned kill of MySQL from a non-operational script merits review.
-
-author: bsk2002
+id: 1F4AD0CD-FE9A-4F45-9C8A-1B1430F8B37A
+status: stable
+description: Sudo pkill mysqld (Potential CVE-2016-6662)
+author: bsk2002, eoadkw, pandyo
 date: 2025-07-29
 tags:
-  - ocsf.system_log
-  - mysql.service_kill
-  - event_type.cve_2016_6662
-  - attack.privilege_escalation
+  - attack.cve_2016_6662
+  - event_type.sudo_pkill_mysqld
 
 logsource:
   product: ocsf
-  category: system
-  service: syslog          # sudo log line from /var/log/auth.log
 
 detection:
   syslog_event:
@@ -33,7 +24,6 @@ detection:
   condition: syslog_event and sudo_prefix and pkill_cmd
 
 falsepositives:
-  - 정상 점검·배포 과정에서의 MySQL 재시작
-  - 운영 스크립트(backup, failover 등)의 서비스 재시작
+  - Restarting MySQL during normal inspection and deployment process
 
 level: high

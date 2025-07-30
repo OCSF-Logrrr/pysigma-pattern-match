@@ -1,38 +1,32 @@
-title: DirtyPipe Failed su-to-root
+title: CVE-2022-0847 DirtyPipe Failed su-to-root
 id: 6C8F4F3A-7D0F-46B4-8C61-8E5B295E0E3F
-status: test
-description: >
-  Detects failed attempts to switch user to **root** via `su` immediately
-  after a Dirty Pipe (CVE-2022-0847) exploit path.  
-  Matches Linux syslog lines such as  
-  `su: FAILED SU (to root) ubuntu on pts/1`,  
-  captured as OCSF *System Log* events (`class_uid: 5023`).
-
-author: bsk2002
+status: stable
+description: CVE-2022-0847 DirtyPipe Failed su-to-root
+author: bsk2002, eoadkw, pandyo
 date: 2025-07-29
 tags:
-  - ocsf.system_log
   - attack.cve_2022_0847
-  - attack.privilege_escalation
-  - linux.auth_fail
+  - event_type.cve_2022_0847
 
 logsource:
   product: ocsf
-  category: system
-  service: syslog
 
 detection:
-  syslog_event:
+  ids_event:
     class_uid: 5023
 
-  failed_su_root:
-    message.keyword|contains:
-      - "su: FAILED SU (to root"
+  syslog_msg:
+    message|contains: FAILED
 
-  condition: syslog_event and failed_su_root
+  syslog_msg2:
+    message|contains: SU
+
+  syslog_msg3:
+    message|contains: root
+
+  condition: ids_event and syslog_msg and syslog_msg2 and syslog_msg3
 
 falsepositives:
-  - 운영자가 잘못 입력한 su 명령
-  - 자동 스크립트 테스트 실패
+  - The administrator entered the su command incorrectly.
 
-level: medium
+level: high
