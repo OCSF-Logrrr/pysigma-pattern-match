@@ -1,0 +1,26 @@
+title: EC2 DescribeInstances API Call
+id: 9B7C5E32-C4B2-4B31-B3B3-23F10E9C5F6A
+status: stable
+description: Querying EC2 instances via API calls.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - cloud.aws
+  - event_type.ec2_api_call
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 5003
+
+  describe_instances:
+    message|contains: "DescribeInstances"
+
+  condition: ids_event and describe_instances
+
+falsepositives:
+  - normal view
+
+level: low

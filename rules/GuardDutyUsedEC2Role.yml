@@ -1,0 +1,32 @@
+title: EC2RoleCredentials-Used-Externally
+id: 3A9B1C4E-0B49-4F3F-9F6F-1E2E2D5F10C7
+status: stable
+description: Credentials for instance EC2 role were used from an external IP address.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - aws.guardduty
+  - event_type.guardduty_used_role
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 2004
+
+  ext_role_msg:
+    message|contains: Credentials
+
+  ext_role_msg2:
+    message|contains: external
+
+  ext_role_msg3:
+    message|contains: IP
+
+  ext_role_msg4:
+    message|contains: role
+
+  condition: ids_event and ext_role_msg and ext_role_msg2 and ext_role_msg3 and ext_role_msg4
+
+level: critical

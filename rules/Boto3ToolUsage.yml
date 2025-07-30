@@ -1,0 +1,26 @@
+title: Boto3 Tool Usage
+id: 8F9A4A3E-A718-418D-8A76-2E6F672F2645
+status: stable
+description: Requests generated with UserAgent set to Boto3.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - python.boto3
+  - event_type.tools
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 5003
+
+  boto3_agent:
+    metadata.product.name: "Boto3"
+
+  condition: ids_event and boto3_agent
+
+falsepositives:
+  - Normal automation scripts and CI/CD pipelines
+
+level: medium

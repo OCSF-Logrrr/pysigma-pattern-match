@@ -1,0 +1,35 @@
+title: pem Key File Permissions Change
+id: 64C6F33A-1B2B-4F18-9FE8-744FCD8B6AF9
+status: stable
+description: The permissions of KeyFiles existing in Windows have been changed.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - window.icacls
+  - event_type.keyfile_icacls
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 5003
+
+  icacls_msg:
+    message|contains: icacls
+
+  icacls_msg2:
+    message|contains: Permissions
+  
+  icacls_msg3:
+    message|contains: changed
+
+  icacls_msg4:
+    message|contains: pem
+
+  condition: ids_event and icacls_msg and icacls_msg2 and icacls_msg3 and icacls_msg4
+
+falsepositives:
+  - Set by administrator
+
+level: high

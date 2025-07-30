@@ -1,0 +1,29 @@
+title: SQL Injection
+id: F2E8E6C9-011E-4C8E-AF3B-28FE1CCB5B1E
+status: stable
+description: Detects SQL Injection attempts when alerts from WAF or IDS include the text "SQL Injection" in their message.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - web.app_attack
+  - event_type.sql_injection
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 5023
+
+  sql_msg:
+    message|contains: SQL
+  
+  injection_msg:
+    message|contains: Injection
+
+  condition: ids_event and sql_msg and injection_msg
+
+falsepositives:
+  - mock hacking
+
+level: high

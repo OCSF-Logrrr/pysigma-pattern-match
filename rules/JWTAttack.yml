@@ -1,0 +1,29 @@
+title: JWT Attack
+id: 0E8D279E-7F57-4DC2-B3CD-77C3D4B0ACB3
+status: stable
+description: Detects JWT Attack attempts when alerts from WAF or IDS include the text "JWT Attack" in their message.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - web.app_attack
+  - event_type.jwt_attack
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 5023
+
+  jwt_msg:
+    message|contains: JWT
+
+  attack_msg:
+    message|contains: Attack
+
+  condition: ids_event and jwt_msg and attack_msg
+
+falsepositives:
+  - mock hacking
+
+level: high

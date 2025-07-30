@@ -1,0 +1,29 @@
+title: SSM StartSession
+id: 64C6F33A-1B2B-4F18-9FE8-744FCD8B6AF9
+status: stable
+description: Normal AWS SSM Session Start.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - aws.ssm_session_manager
+  - event_type.start_session
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 6003
+
+  start_session:
+    api.operation: StartSession
+
+  start_session_msg:
+    message|contains: StartSession
+
+  condition: ids_event and start_session and start_session_msg
+
+falsepositives:
+  - normal ssm session start
+
+level: low

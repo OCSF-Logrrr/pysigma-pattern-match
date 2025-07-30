@@ -1,0 +1,32 @@
+title: Curl files path
+id: 55B19247-2197-4E3A-8DFD-85F3C15E9840
+status: stable
+description: Executes CURL command in files path.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - os.curl
+  - event_type.curl
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 1007
+
+  curl_exec:
+    actor.process.file.name: curl
+
+  audit_msg:
+    message|contains: audit
+
+  files_path:
+    actor.process.working_directory: "/var/www/html/apache2/webapi/files"
+
+  condition: ids_event and curl_exec and audit_msg and files_path
+
+falsepositives:
+  - Administrator's command
+
+level: high

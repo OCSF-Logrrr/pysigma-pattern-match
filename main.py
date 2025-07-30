@@ -149,6 +149,8 @@ def main():
                 uid_c = src.get("class_uid", "N/A") #로그의 class_uid 필드 저장
                 sev   = level_text(getattr(rule, "level", None)) #rules의 level 저장
                 event_type = get_event_type(hit, rule) #ruels의 event_type을 반환
+                print(f"--[EVENT TYPE] : {event_type}")
+                print("DEBUG: rule tags", getattr(rule, "tags", None))
                 if not event_type: continue #event_type이 반환되지 않으면 종료
 
                 ip_tracker.add_event(ip, event_type, parse_ts(ts)) #ip별로 event_type과 시간을 추가

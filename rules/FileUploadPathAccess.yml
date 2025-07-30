@@ -1,0 +1,29 @@
+title: FileUploadPathAccess
+id: 1C7E5FBE-5234-4A97-BBFB-1D19B82E9C35
+status: stable
+description: GET request that occurs when accessing the files path
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - web.file_access
+  - event_type.files
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 4002
+
+  http_method:
+    http_request.http_method: "GET"
+
+  upload_path_msg:
+    message|contains: "files"
+
+  condition: ids_event and http_method and upload_path_msg
+
+falsepositives:
+  - Access a normal files
+
+level: medium

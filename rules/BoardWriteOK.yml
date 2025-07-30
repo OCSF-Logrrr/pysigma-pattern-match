@@ -1,0 +1,29 @@
+title: BoardWriteOK
+id: 7A4EB72C-74EC-4322-9F5B-5F8EC5871E0C
+status: stable
+description: POST request that occurs when a post is created.
+author: eoadkw, pandyo
+date: 2025-07-29
+tags:
+  - web.board_write
+  - event_type.write
+
+logsource:
+  product: ocsf
+
+detection:
+  ids_event:
+    class_uid: 4002
+
+  http_method:
+    http_request.http_method: "POST"
+
+  write_msg:
+    message|contains: write_ok
+
+  condition: ids_event and http_method and write_msg
+
+falsepositives:
+  - Write a normal post
+
+level: low
