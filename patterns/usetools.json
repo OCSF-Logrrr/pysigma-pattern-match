@@ -1,0 +1,6 @@
+{
+  "name": "Tools High Frequency Usage Pattern",
+  "description": "특정 시간 내에 tools 사용 빈도가 임계값을 초과하면 패턴 매치",
+  "sequence": ["tools", "tools", "tools", "tools", "tools", "tools", "tools", "tools", "tools", "tools"],
+  "within_seconds": 30
+  }
