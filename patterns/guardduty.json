@@ -1,0 +1,6 @@
+{
+  "name": "GuardDuty Role to Session Start Sequence",
+  "description": "GuardDuty 역할 사용 → EC2 API 호출 → 세션 시작 순서가 일정 시간 내 발생",
+  "sequence": ["guardduty_used_role", "ec2_api_call", "start_session"],
+  "within_seconds": 600
+}
