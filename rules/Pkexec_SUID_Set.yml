@@ -1,0 +1,40 @@
+title: Pkexec SUID Bit Set (CVE-2021-4034)
+id: 7E6AB25B-0C44-4F27-8847-8416A61B4E0D
+status: test
+description: >
+  Detects a privileged user (typically via **sudo**) explicitly adding the
+  SUID bit (`chmod u+s`) to **/usr/bin/pkexec**—a common step in exploiting
+  the Polkit *pkexec* heap-overflow vulnerability **CVE-2021-4034** to gain
+  persistent root privileges.  Triggered on OCSF *System Log* events
+  (`class_uid: 5023`) sourced from Linux syslog.
+
+author: bsk2002
+date: 2025-07-29
+tags:
+  - ocsf.system_log
+  - event_type.cve_2021_4034
+  - attack.privilege_escalation
+  - linux.pkexec
+
+logsource:
+  product: ocsf
+  category: system
+  service: syslog
+
+detection:
+  syslog_event:
+    class_uid: 5023
+
+  pkexec_path:
+    message.keyword|contains: "/usr/bin/pkexec"
+
+  chmod_suid:
+    message.keyword|contains: "chmod u+s"
+
+  condition: syslog_event and pkexec_path and chmod_suid
+
+falsepositives:
+  - 시스템 관리자에 의한 합법적 SUID 설정
+  - 보안·테스트 랩 환경의 모의 공격
+
+level: high

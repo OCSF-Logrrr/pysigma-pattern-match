@@ -1,0 +1,40 @@
+title: MySQL Restart via mysqld_safe (Potential CVE-2016-6662)
+id: E47596A3-2F2A-4F62-9C23-1B784BEF40D4
+status: test
+description: >
+  Detects a privileged user invoking **`mysqld_safe`** with *sudo*  
+  (e.g., `sudo /usr/local/mysql/bin/mysqld_safe --user=mysql`).  
+  After planting a malicious `my.cnf`, attackers exploiting the MySQL
+  config-file RCE **CVE-2016-6662** often restart MySQL this way so the
+  daemon reloads the back-doored configuration.
+
+author: bsk2002
+date: 2025-07-29
+tags:
+  - ocsf.system_log
+  - mysql.restart
+  - event_type.cve_2016_6662
+  - attack.privilege_escalation
+
+logsource:
+  product: ocsf
+  category: system
+  service: syslog            # sudo lines from /var/log/auth.log
+
+detection:
+  syslog_event:
+    class_uid: 5003
+
+  sudo_prefix:
+    message.keyword|contains: "sudo:"
+
+  mysqld_safe_cmd:
+    message.keyword|contains: "COMMAND=/usr/local/mysql/bin/mysqld_safe --user=mysql"
+
+  condition: syslog_event and sudo_prefix and mysqld_safe_cmd
+
+falsepositives:
+  - 정상 유지보수·업그레이드 중 MySQL 재시작
+  - 복구 스크립트가 mysqld_safe 로 재기동
+
+level: high
