@@ -10,3 +10,16 @@ _This repository is part of the WHS 3rd OCSF-based Security Log Integration and 
 <img width="1007" height="511" alt="스크린샷 2025-08-04 오전 10 21 12" src="https://github.com/user-attachments/assets/1883c00f-172f-4c88-b7d5-6ee73eb85a74" />
 
 # Directory Structure
+
+```bash
+pysigma-pattern-match/
+├── main.py  #main executable file
+├── rule_manager.py  #sigma rules dictionary management
+├── state_tracker.py  #pattern-based detection
+├── notifier.py  #manage Slack notifications
+├── rules/  #rules .yml directory
+├── patterns/  #pattern .json directory
+└── README.md
+
+3 directories, 24 files
+```
